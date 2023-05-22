@@ -12,7 +12,7 @@ const cover = document.getElementById("cover");
 // Song titles
 const songs = ["Track-1", "Track-2", "Track-3"]; // Array of titles should match the song file name
 
-let songIndex = 2;
+let songIndex = 0;
 
 loadSong(songs[songIndex]);
 
@@ -66,10 +66,21 @@ function nextSong() {
   playSong();
 }
 
+// Update progress bar
+
 function updateProgress(e) {
   const { duration, currentTime } = e.srcElement;
   const progressPercent = (currentTime / duration) * 100;
   progress.style.width = `${progressPercent}%`;
+}
+
+// Set progress bar
+function setProgress(e) {
+  const width = this.clientWidth; // Give the total width
+  const clickX = e.offsetX; // Tells where we click exactly
+  const duration = audio.duration; // Gives the complete duration of the song
+
+  audio.currentTime = (clickX / width) * duration; // Setting the current time of the song equal to the clicked progress
 }
 
 // Event listeners
@@ -89,3 +100,9 @@ nextBtn.addEventListener("click", nextSong);
 
 // Time/Song update
 audio.addEventListener("timeupdate", updateProgress);
+
+// Click on progress bar
+progressContainer.addEventListener("click", setProgress);
+
+// Song ends -> go to next song when the current song is ended authomatically
+audio.addEventListener("ended", nextSong);
