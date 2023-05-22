@@ -24,12 +24,39 @@ function playSong() {
 
   audio.play();
 }
+
+// Pause song
 function pauseSong() {
   musicContainer.classList.remove("play");
   playBtn.querySelector("i.fas").classList.add("fa-play");
   playBtn.querySelector("i.fas").classList.remove("fa-pause");
 
   audio.pause();
+}
+
+// Prev song
+function prevSong() {
+  songIndex--;
+
+  if (songIndex < 0) {
+    songIndex = songs.length - 1;
+  }
+
+  loadSong(songIndex);
+
+  playSong();
+}
+// Next song
+function nextSong() {
+  songIndex++;
+
+  if (songIndex > songs.length - 1) {
+    songIndex = 0;
+  }
+
+  loadSong(songIndex);
+
+  playSong();
 }
 
 // Update song details
@@ -49,3 +76,7 @@ playBtn.addEventListener("click", () => {
     playSong();
   }
 });
+
+// Change song
+prevBtn.addEventListener("click", prevSong);
+nextBtn.addEventListener("click", nextSong);
