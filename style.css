@@ -7,7 +7,7 @@
 body {
   background-image: linear-gradient(
     0deg,
-    rgba(247, 247, 247, 1) 23.6%,
+    rgb(223, 67, 67) 23.6%,
     rgba(252, 211, 211, 1) 92%
   );
   height: 100vh;
@@ -33,6 +33,18 @@ body {
 .img-container {
   position: relative;
   width: 110px;
+}
+
+.img-container::after {
+  content: "";
+  background-color: #f0e5e5;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, 50%);
 }
 
 .img-container img {
@@ -87,4 +99,45 @@ body {
 
 .action-btn:focus {
   outline: 0;
+}
+
+.music-info {
+  background-color: rgba(250, 250, 250, 0.5);
+  border-radius: 15px 15px 0 0;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: calc(100% - 40px);
+  padding: 10px 10px 15px;
+  opacity: 0;
+  transform: translateY(0%);
+
+  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+  z-index: 0;
+}
+
+.music-container.play .music-info {
+  opacity: 1;
+  transform: translateY(-100%);
+}
+
+.music-info h4 {
+  margin: 0;
+}
+
+.progress-container {
+  background: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  height: 4px;
+  width: 100%;
+}
+
+.progress {
+  background-color: #e72757;
+  border-radius: 5px;
+  height: 100%;
+  width: 0%; /* Will be cahnged dynamicly when the music is playing through JS  */
+  transition: width 0.1s linear;
 }
