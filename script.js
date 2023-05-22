@@ -16,6 +16,13 @@ let songIndex = 2;
 
 loadSong(songs[songIndex]);
 
+// Update song details
+function loadSong(song) {
+  title.innerText = song;
+  audio.src = `songs/${song}.mp3`;
+  cover.src = `images/${song}.jpg`;
+}
+
 // Play song
 function playSong() {
   musicContainer.classList.add("play");
@@ -42,7 +49,7 @@ function prevSong() {
     songIndex = songs.length - 1;
   }
 
-  loadSong(songIndex);
+  loadSong(songs[songIndex]);
 
   playSong();
 }
@@ -54,16 +61,15 @@ function nextSong() {
     songIndex = 0;
   }
 
-  loadSong(songIndex);
+  loadSong(songs[songIndex]);
 
   playSong();
 }
 
-// Update song details
-function loadSong(song) {
-  title.innerText = song;
-  audio.src = `music/${song}.mp3`;
-  cover.src = `images/${song}.jpg`;
+function updateProgress(e) {
+  const { duration, currentTime } = e.srcElement;
+  const progressPercent = (currentTime / duration) * 100;
+  progress.style.width = `${progressPercent}%`;
 }
 
 // Event listeners
@@ -80,3 +86,6 @@ playBtn.addEventListener("click", () => {
 // Change song
 prevBtn.addEventListener("click", prevSong);
 nextBtn.addEventListener("click", nextSong);
+
+// Time/Song update
+audio.addEventListener("timeupdate", updateProgress);
